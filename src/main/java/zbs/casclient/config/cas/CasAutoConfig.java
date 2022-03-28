@@ -1,6 +1,6 @@
 package zbs.casclient.config.cas;
 
-import org.jasig.cas.client.validation.Cas30ProxyReceivingTicketValidationFilter;
+import org.jasig.cas.client.session.SingleSignOutFilter;
 import org.jasig.cas.client.validation.Cas30ServiceTicketValidator;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
 import javax.annotation.Resource;
-import javax.servlet.Filter;
 
 /**
  * @author zhangbaisen
@@ -31,4 +30,18 @@ public class CasAutoConfig {
         f.setTicketValidator(new Cas30ServiceTicketValidator(casProperties.getServerName()));
         return f;
     }
+
+    @Bean
+    public SingleSignOutFilter singleSignOutFilter(){
+        SingleSignOutFilter singleSignOutFilter = new SingleSignOutFilter();
+        singleSignOutFilter.setIgnoreInitConfiguration(true);
+        return singleSignOutFilter;
+    }
+
+//    @Bean
+//    public LogoutFilter requestSingleLogoutFilter(){
+//        LogoutFilter logoutFilter = new LogoutFilter(casProperties.getLogoutRedirectUrl(), new SecurityContextLogoutHandler());
+//        logoutFilter.setFilterProcessesUrl("logoutCas");
+//        return logoutFilter;
+//    }
 }

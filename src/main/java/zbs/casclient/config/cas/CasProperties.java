@@ -17,8 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 public class CasProperties {
     private final Protocol protocol = Protocol.CAS3;
     private String serverName;
-    private String casServerLoginUrl;
+    private String serverLoginUrl;
+    private String serverLogoutUrl;
     private String clientName;
+    private String clientPathLogout;
     private boolean encodeServiceUrl = true;
 
     /**
@@ -39,8 +41,13 @@ public class CasProperties {
     }
     
     public final String constructRedirectUrl(String modifiedServiceUrl){
-        return CommonUtils.constructRedirectUrl(this.casServerLoginUrl,
+        return CommonUtils.constructRedirectUrl(this.serverLoginUrl,
                 getProtocol().getServiceParameterName(), modifiedServiceUrl, this.renew, this.gateway);
+    }
+    
+    /** 登出时重定向到登录页 */
+    public final String getLogoutRedirectUrl(){
+        return this.serverLogoutUrl + "?service=" + this.getClientName();
     }
     
 }

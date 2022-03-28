@@ -1,5 +1,6 @@
 package zbs.casclient.config;
 
+import org.jasig.cas.client.session.SingleSignOutFilter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -23,20 +24,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private CasTicketValidFilter casTicketValidFilter;
     @Resource
     private AuthenticationEntryPoint casAuthEntryPoint;
-    
-   
+    @Resource
+    private CasProperties casProperties;
+    @Resource
+    private SingleSignOutFilter singleSignOutFilter;
+
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        super.configure(web);
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic().disable();
+        //指定作用范围
+//        http.requestMatchers()
+//                        .antMatchers("/scu/*");
         
         http.authorizeRequests()
                 //允许预检请求
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .anyRequest().authenticated()
-                .and()
-                .logout().permitAll()
-                .logoutUrl("logoutCas")
                 .and()
                 .csrf().disable()
                 .cors();
@@ -44,6 +52,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //cas 相关
         http.addFilterBefore(casTicketValidFilter,UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling().authenticationEntryPoint(casAuthEntryPoint);
+        http.logout()
+                .logoutUrl(casProperties.getClientPathLogout())
+                .logoutSuccessUrl(casProperties.getLogoutRedirectUrl())
+                .permitAll();
+        
+        //cas单点登出，会拦截所有请求。认证时保存ticket和session；退出时，清除对应ticket和session。
+        //所以要配合 SingleSignOutHttpSessionListener 使用，在session销毁时清除
+        //http.addFilterBefore(singleSignOutFilter,CasTicketValidFilter.class);
     }
 
     @Override
