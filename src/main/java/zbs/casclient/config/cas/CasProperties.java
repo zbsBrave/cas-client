@@ -20,7 +20,7 @@ public class CasProperties {
     private String serverLoginUrl;
     private String serverLogoutUrl;
     private String clientName;
-    private String clientPathLogout;
+    private String clientPathLogout = "/logoutCas";
     private boolean encodeServiceUrl = true;
 
     /**

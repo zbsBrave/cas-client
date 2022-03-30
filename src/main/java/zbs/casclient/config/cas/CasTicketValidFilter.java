@@ -32,7 +32,7 @@ import java.io.IOException;
  */
 @Slf4j
 public class CasTicketValidFilter extends OncePerRequestFilter {
-    private CasProperties casProperties;
+    private final CasProperties casProperties;
     
     private TicketValidator ticketValidator;
 
