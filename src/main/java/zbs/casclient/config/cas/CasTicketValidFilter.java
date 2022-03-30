@@ -26,10 +26,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * @author zhangbaisen
- * @date 2022/3/25 15:34
- */
 @Slf4j
 public class CasTicketValidFilter extends OncePerRequestFilter {
     private final CasProperties casProperties;

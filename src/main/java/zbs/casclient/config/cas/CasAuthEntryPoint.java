@@ -8,10 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * @author zhangbaisen
- * @date 2022/3/25 17:46
- */
 public class CasAuthEntryPoint implements AuthenticationEntryPoint {
     private final CasProperties casProperties;
     

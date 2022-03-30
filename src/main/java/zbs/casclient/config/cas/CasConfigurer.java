@@ -24,8 +24,6 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
  *                  SingleSignOutFilter = new SingleSignOutFilter();
  *                  singleSignOutFilter.setIgnoreInitConfiguration(true);
  *                  http.addFilterBefore(singleSignOutFilter,CasTicketValidFilter.class)
- * @author zhangbaisen
- * @date 2022/3/29 10:42
  */
 public class CasConfigurer<B extends HttpSecurityBuilder<B>, T extends CasConfigurer<B, T>>
         extends AbstractHttpConfigurer<T, B> {

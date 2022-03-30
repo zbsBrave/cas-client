@@ -9,10 +9,6 @@ import org.springframework.web.cors.CorsUtils;
 import zbs.casclient.config.cas.CasConfigurer;
 import zbs.casclient.config.cas.CasProperties;
 
-/**
- * @author zhangbaisen
- * @date 2022/3/23 12:05
- */
 @EnableWebSecurity
 @EnableConfigurationProperties(CasProperties.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {

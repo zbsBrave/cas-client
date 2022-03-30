@@ -8,10 +8,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * @author zhangbaisen
- * @date 2022/3/25 18:00
- */
 @Data
 @ConfigurationProperties(prefix = "cas")
 public class CasProperties {
