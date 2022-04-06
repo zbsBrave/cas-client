@@ -15,4 +15,14 @@ public class TestController {
     public String t1(){
         return "t1";
     }
+
+    @GetMapping("/test/t3")
+    public String t3(){
+        return "/test/t3";
+    }
+
+    @GetMapping("/test/t4")
+    public String t4(){
+        return "/test/t4";
+    }
 }
