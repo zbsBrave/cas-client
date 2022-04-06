@@ -50,6 +50,9 @@ public class CusAuthServerConfig extends AuthorizationServerConfigurerAdapter {
                 .authorizedGrantTypes("authorization_code", "refresh_token", "client_credentials", "password")
                 .scopes("message.read", "message.write")
                 .secret("{noop}secret")
+                //自动授权，不需要用户点击授权
+//                .autoApprove("message.read")
+                .autoApprove(true)
                 .redirectUris("http://app.example.com/oauth2/callback");
     }
 
@@ -71,6 +74,9 @@ public class CusAuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Bean
     public UserApprovalHandler userApprovalHandler() {
+        // ApprovalStoreUserApprovalHandler： 如果已存在有效的oauth_access_token，并且url中的scope是authentication中scope的子集，则无需授权
+        // DefaultUserApprovalHandler：每次都需要授权
+        // 自动授权，可以修改 clients 的 autoApprove 字段，参考： https://blog.csdn.net/dsfllx/article/details/106604727
         ApprovalStoreUserApprovalHandler userApprovalHandler = new ApprovalStoreUserApprovalHandler();
         userApprovalHandler.setApprovalStore(approvalStore());
         userApprovalHandler.setClientDetailsService(this.clientDetailsService);
