@@ -53,7 +53,7 @@ public class CusAuthServerConfig extends AuthorizationServerConfigurerAdapter {
                 //自动授权，不需要用户点击授权
 //                .autoApprove("message.read")
                 .autoApprove(true)
-                .redirectUris("http://app.example.com/oauth2/callback");
+                .redirectUris("http://localhost:8080/callback");
     }
 
     @Override
