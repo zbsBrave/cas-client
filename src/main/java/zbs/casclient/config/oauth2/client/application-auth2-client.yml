@@ -1,0 +1,24 @@
+#参考 CommonOAuth2Provider
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          baidu:
+            authorization-uri: https://github.com/login/oauth/authorize
+            token-uri: https://github.com/login/oauth/access_token
+            user-info-uri: https://api.github.com/user
+            jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
+            user-name-attribute: sub
+            # todo: userInfoAuthenticationMethod
+            # todo: issuerUri
+        registration:
+          baidu-login:
+            provider: baidu
+            client-id: baidu-client-id
+            client-secret: baidu-client-secret
+            client-authentication-method: client_secret_basic #参考：ClientAuthenticationMethod
+            authorization-grant-type: authorization_code #参考：AuthorizationGrantType
+            redirect-uri: http://127.0.0.1:8080/login/oauth2/code/login-client
+            scope: openid,phone,message.read,message.write
+            client-name: Baidu
