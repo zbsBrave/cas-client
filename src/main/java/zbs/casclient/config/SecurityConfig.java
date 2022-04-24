@@ -18,11 +18,6 @@ import zbs.casclient.config.cas.CasProperties;
 //@EnableConfigurationProperties(CasProperties.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        
-//    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //指定作用范围
@@ -32,6 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 //允许预检请求
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+                .antMatchers("/oauth2/keys").permitAll()//对外暴露公钥
                 .antMatchers("/test/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -41,7 +37,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        http.apply(new CasConfigurer<>());
 
         //测试oauth2认证
-        http.formLogin();
+        http.httpBasic();
+        
+        //资源服务器
+//        http.oauth2ResourceServer()
+//                .jwt().jwkSetUri("http://localhost:8080/oauth2/keys");
     }
 
     @Override
