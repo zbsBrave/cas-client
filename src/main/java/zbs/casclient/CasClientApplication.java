@@ -1,10 +1,9 @@
 package zbs.casclient;
 
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
-import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-import com.baomidou.mybatisplus.generator.config.OutputFile;
-import com.baomidou.mybatisplus.generator.config.PackageConfig;
-import com.baomidou.mybatisplus.generator.config.TemplateConfig;
+import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
+import com.baomidou.mybatisplus.generator.config.rules.DateType;
 
 import java.util.Collections;
 import java.util.function.Consumer;
@@ -26,11 +25,11 @@ public class CasClientApplication {
     private static final String url_user =
             "jdbc:mysql://10.10.1.30:3307/syhd_user?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai";
 
+    private static final String username = "syhd";
+    private static final String pwd = "syhd!@#321";
+    
     public static void main(String[] args) {
-        FastAutoGenerator.create(
-                        url_user,
-                        "syhd",
-                        "syhd!@#321")
+        FastAutoGenerator.create(getDataSourceConfig())
                 .globalConfig(getGlobalConfig())
                 .packageConfig(getPackageConfig())
                 .strategyConfig(builder -> {
@@ -46,10 +45,16 @@ public class CasClientApplication {
                 .templateConfig(getTemplateConfig())
                 .execute();
     }
+    
+    public static DataSourceConfig.Builder getDataSourceConfig(){
+        return new DataSourceConfig.Builder(url_user, username, pwd)
+                .typeConvert(new MySqlTypeConvert());
+    }
 
     public static Consumer<GlobalConfig.Builder> getGlobalConfig() {
         return builder -> builder.author("zbs") // 设置作者
 //                .enableSwagger() // 开启 swagger 模式
+                .dateType(DateType.ONLY_DATE) //指定日期类型映射为 java.util.Date。默认的是LocalDateTime
                 .commentDate("yyyy-MM-dd") //注释日期
                 .outputDir(FILE_PATH_JAVA); // 指定输出目录
     }
