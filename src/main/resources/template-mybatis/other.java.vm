@@ -1,0 +1,6 @@
+
+
+@Mapper
+public interface ${test}Dao {
+
+}
