@@ -21,8 +21,8 @@ public class CasClientApplication {
     private static final String TEMPLATE_XML = "template-mybatis/mapper.xml.vm";
     private static final String TEMPLATE_MAPPER = "template-mybatis/mapper.java.vm";
     private static final String TEMPLATE_ENTITY = "template-mybatis/entity.java.vm";
-    private static final String FILE_PATH_JAVA = "D://aaaaa";
-    private static final String FILE_PATH_XML = "D://aaaaa";
+    private static final String FILE_PATH_JAVA = "D://aaa-generator";
+    private static final String FILE_PATH_XML = "D://aaa-generator";
     private static final String url_user =
             "jdbc:mysql://10.10.1.30:3307/syhd_user?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai";
 
