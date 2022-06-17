@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
  * @author zbs
  * @since 2022/6/10 17:01
  */
-@Controller
+//@Controller
 public class GsMsgController {
 
     /**
