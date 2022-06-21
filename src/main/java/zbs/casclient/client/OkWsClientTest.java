@@ -15,10 +15,12 @@ public class OkWsClientTest {
     public static void main(String[] args) {
         String uri = "ws://localhost:8080/wsa";
         
-        for(int i = 0; i < 1000; i++){
+        
+        for(int i = 0; i < 6000; i++){
             int finalI = i;
             new Thread( () -> {
                 WebSocket ws = getClient(uri);
+                System.out.println(finalI);
                 ws.send("abc" + finalI);
             }).start();
         }
@@ -30,10 +32,12 @@ public class OkWsClientTest {
                 .readTimeout(3, TimeUnit.SECONDS)//设置读取超时时间
                 .writeTimeout(3, TimeUnit.SECONDS)//设置写的超时时间
                 .connectTimeout(3, TimeUnit.SECONDS)//设置连接超时时间
+//                .pingInterval(10, TimeUnit.HOURS)
                 .build();
 
         Request request = new Request.Builder().get().url(url).build();
 
+        //webSocket实现类是RealWebSocket
         WebSocket webSocket = mClient.newWebSocket(request, new WebSocketListener() {
             @Override
             public void onOpen(@NotNull WebSocket webSocket, @NotNull Response response) {

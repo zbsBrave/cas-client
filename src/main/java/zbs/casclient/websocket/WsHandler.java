@@ -17,6 +17,8 @@ public class WsHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         log.info("连接成功,{}", session.getId());
+        WsManager.add(session);
+        session.sendMessage(new TextMessage("ok ---> " + session.getId()));
         System.out.println("握手前放入attribute中的uid：" + session.getAttributes().get("uid"));
     }
 
@@ -61,7 +63,8 @@ public class WsHandler extends TextWebSocketHandler {
      */
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        log.info("断开连接，{},status={}", session.getId(), status);
+        WsManager.remove(session.getId());
+        log.info("断开连接, status={}, id={}", status, session.getId());
     }
 
     /**

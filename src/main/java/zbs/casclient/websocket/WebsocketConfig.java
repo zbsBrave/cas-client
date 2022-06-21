@@ -19,5 +19,7 @@ public class WebsocketConfig implements WebSocketConfigurer {
                 .addInterceptors(new WsInterceptor())
                 //允许跨域
                 .setAllowedOrigins("*");
+        
+        registry.addHandler(new WsHandler(),"/sjs").withSockJS();
     }
 }
