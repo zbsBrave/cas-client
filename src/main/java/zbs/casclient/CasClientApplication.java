@@ -25,7 +25,8 @@ public class CasClientApplication {
     private static final String FILE_PATH_JAVA = "D://aaa-generator";
     private static final String FILE_PATH_XML = "D://aaa-generator";
     private static final String url_user =
-            "jdbc:mysql://10.10.1.30:3307/syhd_user?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai";
+//            "jdbc:mysql://10.10.1.30:3307/syhd_user?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai";
+            "jdbc:mysql://10.10.1.30:3307/syhd-game-sdk?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai";
 
     private static final String username = "syhd";
     private static final String pwd = "syhd!@#321";
@@ -36,8 +37,8 @@ public class CasClientApplication {
                 .packageConfig(getPackageConfig())
                 .strategyConfig(builder -> {
                     builder
-                            .addInclude("app") // 设置需要生成的表名
-                            .addTablePrefix("t_", "c_") // 设置过滤表前缀
+                            .addInclude("phone_guidance","phone_guidance_channel") // 设置需要生成的表名
+//                            .addTablePrefix("t_", "c_") // 设置过滤表前缀
                             .entityBuilder()
                             .enableLombok().disableSerialVersionUID().fileOverride()
                             .serviceBuilder().fileOverride() //覆盖已有文件

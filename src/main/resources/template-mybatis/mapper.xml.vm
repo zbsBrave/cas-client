@@ -62,7 +62,7 @@
     <sql id="value">
         <trim suffixOverrides=",">
         #foreach($field in $table.fields)
-            <if test="$field.propertyName != null">#{$field.name},</if>
+            <if test="$field.propertyName != null">#{$field.propertyName},</if>
         #end
         </trim>
     </sql>
