@@ -1,6 +1,7 @@
 package zbs.casclient.client;
 
 import okhttp3.*;
+import okhttp3.internal.ws.RealWebSocket;
 import okio.ByteString;
 import org.jetbrains.annotations.NotNull;
 
@@ -13,10 +14,14 @@ import java.util.concurrent.TimeUnit;
 public class OkWsClientTest {
     
     public static void main(String[] args) {
-        String uri = "ws://localhost:8080/wsa";
+//        String uri = "ws://10.10.0.125:8080/wsa";
+        String uri = "ws://10.10.0.125:8080/sjs";
         
+        //-Dhttp.proxyHost=10.10.0.125 -Dhttp.proxyPort=8888
+        System.setProperty("http.proxyHost", "10.10.0.125");
+        System.setProperty("http.proxyPort", "8888");
         
-        for(int i = 0; i < 6000; i++){
+        for(int i = 0; i < 1; i++){
             int finalI = i;
             new Thread( () -> {
                 WebSocket ws = getClient(uri);
@@ -32,7 +37,7 @@ public class OkWsClientTest {
                 .readTimeout(3, TimeUnit.SECONDS)//设置读取超时时间
                 .writeTimeout(3, TimeUnit.SECONDS)//设置写的超时时间
                 .connectTimeout(3, TimeUnit.SECONDS)//设置连接超时时间
-//                .pingInterval(10, TimeUnit.HOURS)
+                .pingInterval(10, TimeUnit.SECONDS)
                 .build();
 
         Request request = new Request.Builder().get().url(url).build();
