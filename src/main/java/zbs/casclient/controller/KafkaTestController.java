@@ -5,11 +5,10 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.annotation.Resource;
 
 /**
- * kafka简单使用，只需要配置 spring.kafka.bootstrap-servers 就可以
+ * kafka简单使用，只需要配置 spring.kafka.bootstrap-servers
  * @author zbs
  * @since 2022/7/25 10:06
  */
@@ -20,12 +19,19 @@ public class KafkaTestController {
     private KafkaTemplate<Object, Object> kafkaTemplate;
     
     @GetMapping("/send")
-    public void send(String msg){
+    public String send(String msg){
         kafkaTemplate.send("topic-easy", msg);
+        kafkaTemplate.send("top001", msg);
+        return msg;
     }
     
-    @KafkaListener(groupId = "group-test1", topics = "topic-easy")
+    @KafkaListener(id = "listener-test1", topics = "topic-easy")
     public void listen(String msg){
+        System.out.println("listen msg: " + msg);
+    }
+
+    @KafkaListener(id = "listener-test2", topics = "topic-easy")
+    public void listen2(String msg){
         System.out.println("listen msg: " + msg);
     }
 }

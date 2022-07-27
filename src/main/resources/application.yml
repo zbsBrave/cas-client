@@ -2,3 +2,11 @@ spring:
   kafka:
     bootstrap-servers: 
       - localhost:9092
+    # 出现异常：InstanceAlreadyExistsException: kafka.consumer:type=app-info,id=kafka-demo-0
+    # 如果使用了ConcurrentMessageListenerContainer(@KafkaListener)的实现，并且配置了并发度大于1，同时配置了kafka的client-id，会出现上述日志，如果并发配为1则不会出现
+    # 解决：不配置client-id，kafka会默认为多个线程生成id
+#    client-id: kafka-demo
+    consumer:
+      isolation-level: read_committed
+    producer:
+      acks: 1 # 0=不应答，1=leader应答，all=leader和flower应答
