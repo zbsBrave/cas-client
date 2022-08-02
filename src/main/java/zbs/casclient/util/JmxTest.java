@@ -1,4 +1,4 @@
-package zbs.casclient;
+package zbs.casclient.util;
 
 import java.lang.management.*;
 import java.util.List;
