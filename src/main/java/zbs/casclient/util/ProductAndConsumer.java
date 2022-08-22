@@ -46,7 +46,7 @@ public class ProductAndConsumer {
     }
     
     public synchronized static void product() throws InterruptedException {
-        while (product != 0){
+        while (product >= 2){
             //商品充足时，等待消费
             ProductAndConsumer.class.wait();
         }
