@@ -11,7 +11,18 @@ import java.util.stream.Stream;
  */
 public class StreamUtil {
     public static void main(String[] args) {
-        concat();
+        limit();
+//        concat();
+    }
+    
+    //分页 limit
+    public static void limit(){
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
+        int limit = 5, page = 1;
+        for(int i=0; i<list.size(); i+=limit){
+            System.out.println("page: " + page++);
+            list.stream().skip(i).limit(limit).forEach(System.out::println);
+        }
     }
     
     //合并流
