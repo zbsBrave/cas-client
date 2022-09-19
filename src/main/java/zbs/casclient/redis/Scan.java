@@ -14,7 +14,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 public class Scan {
     //todo
     public static void main(String[] args) {
-        setLogLevel();
 
         String key = "gameSdk:package";
         int count = 3;

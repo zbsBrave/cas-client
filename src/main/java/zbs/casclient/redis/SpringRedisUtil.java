@@ -1,6 +1,9 @@
 package zbs.casclient.redis;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.LoggerContext;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
@@ -26,7 +29,13 @@ public class SpringRedisUtil {
     }
     
     public static StringRedisTemplate getStringRedisTemplate(){
+        setLogLevel();
         return new StringRedisTemplate(getLettuceConnectionFactory());
+    }
+
+    public static void setLogLevel(){
+        LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
+        loggerContext.getLogger("root").setLevel(Level.valueOf("INFO"));
     }
     
     private static LettuceConnectionFactory getLettuceConnectionFactory(){
